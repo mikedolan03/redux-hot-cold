@@ -6,7 +6,7 @@ import GuessSection from './guess-section';
 import StatusSection from './status-section';
 import InfoSection from './info-section';
 
-import {makeGuess} from '../actions';
+import {makeGuess, newGame, changeFeedback, changeAural} from '../actions';
 
 export class Game extends React.Component {
   constructor(props) {
@@ -21,6 +21,11 @@ export class Game extends React.Component {
   }
 
   restartGame() {
+  
+   let correctAnswer= Math.floor(Math.random() * 100) + 1;
+
+    this.props.dispatch(newGame());
+
     /*this.setState({
       guesses: [],
       feedback: 'Make your guess!',
@@ -32,7 +37,11 @@ export class Game extends React.Component {
 
   makeGuess(guess) {
     guess = parseInt(guess, 10);
+
+    //actually couldnt get this check to happen in the app
     if (isNaN(guess)) {
+          this.props.dispatch(changeFeedback('Please enter a valid number'));
+
      // this.setState({ feedback: 'Please enter a valid number' });
       return;
     }
@@ -59,6 +68,8 @@ export class Game extends React.Component {
 
     this.props.dispatch(makeGuess(guess, feedback));
 
+    // enable this to test the aural update actions
+    //this.generateAuralUpdate();
 
     // We typically wouldn't touch the DOM directly like this in React
     // but this is the best way to update the title of the page,
@@ -68,6 +79,9 @@ export class Game extends React.Component {
   }
 
   generateAuralUpdate() {
+
+console.log('gen aural');
+
     const { guesses, feedback } = this.props;
 
     // If there's not exactly 1 guess, we want to
@@ -81,7 +95,9 @@ export class Game extends React.Component {
     }
 
 
-    this.setState({ auralStatus });
+    //this.setState({ auralStatus });
+        this.props.dispatch(changeAural(auralStatus));
+
   }
 
   render() {

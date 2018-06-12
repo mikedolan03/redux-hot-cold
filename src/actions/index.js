@@ -10,3 +10,20 @@ export const makeGuess = (guess, feedback) => ({
     guess,
     feedback
 });
+
+export const NEW_GAME = 'NEW_GAME';
+export const newGame = () => ({
+    type: NEW_GAME
+});
+
+export const CHANGE_FEEDBACK = 'CHANGE_FEEDBACK';
+export const changeFeedback = (feedback) => ({
+    type: CHANGE_FEEDBACK,
+    feedback
+});
+
+export const CHANGE_AURAL = 'CHANGE_AURAL';
+export const changeAural = (auralStatus) => ({
+    type: CHANGE_AURAL,
+    auralStatus
+});

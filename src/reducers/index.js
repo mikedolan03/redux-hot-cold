@@ -1,5 +1,5 @@
 //import * as actions '../actions';
-import {MAKE_GUESS} from '../actions';
+import {MAKE_GUESS, NEW_GAME, CHANGE_FEEDBACK, CHANGE_AURAL} from '../actions';
 
 
 const initialState = {
@@ -17,8 +17,38 @@ const initialState = {
  			feedback: action.feedback 
  		});
  	} else { 
-        
-        return state;
+
+        if(action.type === NEW_GAME) {
+
+            return Object.assign({}, state, {
+                guesses: [],
+                feedback: 'Make your guess!',
+                auralStatus: '',
+                correctAnswer: Math.floor(Math.random() * 100) + 1
+            });
+
+        } else {
+
+                 if(action.type === CHANGE_FEEDBACK) {
+
+                    return Object.assign({}, state, {
+                    feedback: action.feedback
+                    });
+
+                    } else {
+
+                                if(action.type === CHANGE_AURAL) {
+
+                                return Object.assign({}, state, {
+                                auralStatus: action.auralStatus
+                                });
+
+                                } else {
+                    
+                                return state;
+                                }
+                            }
+                }
 
      }
 
